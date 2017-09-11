@@ -21,35 +21,47 @@ public class FacadePerson implements FacadePersonInterface {
     @Override
     public Person getPerson(Long personId, String lastName, String firstName) {
         EntityManager em = emf.createEntityManager();
+        
         try{
             em.getTransaction().begin();
             Person person = em.find(Person.class, personId);
             em.getTransaction().commit();
             return person;
-        } finally {
+        }finally{
             em.close();
         }
     }
 
     @Override
-    public Person addPerson(Person p) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-
-    @Override
-    public Person deletePerson(Long personId, String lastName, String firstName) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-
-    @Override
-    public Person editPerson(Person p) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-
-    @Override
     public List<Person> getPersons() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        EntityManager em = emf.createEntityManager();
+        List<Person> persons = null;
+        
+        try{
+            em.getTransaction().begin();
+            persons = em.createQuery("Select p from Person p").getResultList();
+            em.getTransaction().commit();
+            return persons;
+        }finally{
+        em.close();
+        }
     }
+
+    @Override
+    public List<Person> getPersons(int zip) {
+        EntityManager em = emf.createEntityManager();
+        List<Person> persons = null;
+        
+        try{
+            em.getTransaction().begin();
+            persons = em.createQuery("Select p from Person p").getResultList();
+            em.getTransaction().commit();
+            return persons;
+        }finally{
+        em.close();
+        }
+    }
+
     
     
 }
