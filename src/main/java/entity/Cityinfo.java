@@ -34,8 +34,9 @@ public class Cityinfo implements Serializable {
     @Id
     @Basic(optional = false)
     @NotNull
+    @Size(min = 1, max = 45)
     @Column(name = "ZIP")
-    private Integer zip;
+    private String zip;
     @Size(max = 45)
     @Column(name = "CITY")
     private String city;
@@ -43,15 +44,15 @@ public class Cityinfo implements Serializable {
     public Cityinfo() {
     }
 
-    public Cityinfo(Integer zip) {
+    public Cityinfo(String zip) {
         this.zip = zip;
     }
 
-    public Integer getZip() {
+    public String getZip() {
         return zip;
     }
 
-    public void setZip(Integer zip) {
+    public void setZip(String zip) {
         this.zip = zip;
     }
 
