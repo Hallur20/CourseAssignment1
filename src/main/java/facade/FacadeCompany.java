@@ -5,6 +5,6 @@ package facade;
  * @author Christian
  */
 
-public class FacadeCompany {
+public class FacadeCompany implements FacadeCompanyInterface{
     
 }
