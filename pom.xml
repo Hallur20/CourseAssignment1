@@ -3,11 +3,11 @@
     <modelVersion>4.0.0</modelVersion>
 
     <groupId>mycompany</groupId>
-    <artifactId>CoureAssignment1</artifactId>
+    <artifactId>CourseAssignment1</artifactId>
     <version>1.0-SNAPSHOT</version>
     <packaging>war</packaging>
 
-    <name>CoureAssignment1</name>
+    <name>CourseAssignment1</name>
 
     <properties>
         <endorsed.dir>${project.build.directory}/endorsed</endorsed.dir>
