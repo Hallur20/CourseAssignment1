@@ -1,5 +1,10 @@
 package facade;
 
+/**
+ *
+ * @author Christian
+ */
+
 import entity.Person;
 import java.util.List;
 import javax.persistence.EntityManager;

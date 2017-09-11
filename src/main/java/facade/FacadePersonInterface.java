@@ -1,5 +1,10 @@
 package facade;
 
+/**
+ *
+ * @author Christian
+ */
+
 import entity.Person;
 
 public interface FacadePersonInterface {

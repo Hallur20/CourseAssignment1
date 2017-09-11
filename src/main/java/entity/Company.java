@@ -5,6 +5,6 @@ package entity;
  * @author Christian
  */
 
-public class Person {
+public class Company {
     
 }

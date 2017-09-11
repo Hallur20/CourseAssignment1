@@ -1,10 +1,10 @@
-package entity;
+package facade;
 
 /**
  *
  * @author Christian
  */
 
-public class Person {
+public class FacadeCompany {
     
 }
