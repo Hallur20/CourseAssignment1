@@ -1,6 +1,6 @@
-package Facades;
+package facade;
 
-import Entity.Person;
+import entity.Person;
 import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
