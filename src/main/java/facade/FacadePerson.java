@@ -14,8 +14,18 @@ public class FacadePerson implements FacadePersonInterface {
     
     private EntityManagerFactory emf;
     
-    public FacadePerson(EntityManagerFactory emf){
+    FacadePerson() {
+
+    }
+    
+    @Override
+    public void addEntityManagerFactory(EntityManagerFactory emf){
         this.emf = emf;
+    }
+    
+    @Override
+    public EntityManager getEntityManager(){
+        return emf.createEntityManager();
     }
 
     @Override
