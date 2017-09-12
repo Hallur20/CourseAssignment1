@@ -6,6 +6,9 @@
 package rest;
 
 import com.google.gson.Gson;
+import deploy.DeploymentConfiguration;
+import facade.Factory;
+import javax.persistence.Persistence;
 import javax.ws.rs.core.Context;
 import javax.ws.rs.core.UriInfo;
 import javax.ws.rs.Produces;
@@ -13,6 +16,7 @@ import javax.ws.rs.Consumes;
 import javax.ws.rs.GET;
 import javax.ws.rs.Path;
 import javax.ws.rs.PUT;
+import javax.ws.rs.PathParam;
 import javax.ws.rs.core.MediaType;
 
 /**
@@ -20,28 +24,41 @@ import javax.ws.rs.core.MediaType;
  *
  * @author Hallur
  */
-@Path("test")
+@Path("person")
 public class TestResource {
 
     @Context
     private UriInfo context;
-    private Gson gson = new Gson();
+    private Factory f;
+    private Gson gson;
 
     /**
      * Creates a new instance of TestResource
      */
     public TestResource() {
+        f = new Factory();
+        f.addEntityManagerFactory(Persistence.createEntityManagerFactory(DeploymentConfiguration.PU_NAME));
+        gson = new Gson();
     }
-
-    /**
-     * Retrieves representation of an instance of rest.TestResource
-     * @return an instance of java.lang.String
-     */
+    
     @GET
-    @Path("arr")
+    @Path("complete")
+    @Produces(MediaType.APPLICATION_JSON)
+    public String getPers(){
+        return gson.toJson(f.getPersonInfo());
+    }
+    
+    @GET
+    @Path("{id}")
+    @Produces(MediaType.APPLICATION_JSON)
+    public String getPersId(@PathParam("id") Long id){
+        return gson.toJson(f.getPersonInfoId(id));
+    }
+    
+    @GET
+    @Path("cityinfo")
     @Produces(MediaType.APPLICATION_JSON)
     public String getStr() {
-        int[] arr = {1,2,3,4,5};
-        return gson.toJson(arr);
+        return gson.toJson(f.getCityInfo());
     }
 }
