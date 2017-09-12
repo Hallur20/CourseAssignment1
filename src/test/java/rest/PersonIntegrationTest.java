@@ -10,16 +10,16 @@ import org.junit.BeforeClass;
 import org.junit.Test;
 import static org.junit.Assert.*;
 
-public class IntegrationTest {
+public class PersonIntegrationTest {
     
-    public IntegrationTest() {
+    public PersonIntegrationTest() {
     }
     
     @BeforeClass
     public static void setUpClass() {
-        RestAssured.baseURI = "http://207.154.200.197";
+        RestAssured.baseURI = "http://localhost";
         RestAssured.port = 8080;
-        RestAssured.basePath = "/gulesider?zeroDateTimeBehavior=convertToNull";
+        RestAssured.basePath = "/CourseAssignment1";
         RestAssured.defaultParser = Parser.JSON;
     }
     
