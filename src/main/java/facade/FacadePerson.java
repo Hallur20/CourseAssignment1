@@ -14,32 +14,64 @@ public class FacadePerson implements FacadePersonInterface {
     
     private EntityManagerFactory emf;
     
-    public FacadePerson(EntityManagerFactory emf){
+    FacadePerson() {
+
+    }
+    
+    @Override
+    public void addEntityManagerFactory(EntityManagerFactory emf){
         this.emf = emf;
+    }
+    
+    @Override
+    public EntityManager getEntityManager(){
+        return emf.createEntityManager();
     }
 
     @Override
     public Person getPerson(Long personId, String lastName, String firstName) {
         EntityManager em = emf.createEntityManager();
+        
         try{
             em.getTransaction().begin();
             Person person = em.find(Person.class, personId);
             em.getTransaction().commit();
             return person;
-        } finally {
+        }finally{
             em.close();
         }
     }
 
     @Override
     public List<Person> getPersons() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        EntityManager em = emf.createEntityManager();
+        List<Person> persons = null;
+        
+        try{
+            em.getTransaction().begin();
+            persons = em.createQuery("Select p from Person p").getResultList();
+            em.getTransaction().commit();
+            return persons;
+        }finally{
+        em.close();
+        }
     }
 
     @Override
     public List<Person> getPersons(int zip) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        EntityManager em = emf.createEntityManager();
+        List<Person> persons = null;
+        
+        try{
+            em.getTransaction().begin();
+            persons = em.createQuery("Select p from Person p").getResultList();
+            em.getTransaction().commit();
+            return persons;
+        }finally{
+        em.close();
+        }
     }
+
     
     
 }

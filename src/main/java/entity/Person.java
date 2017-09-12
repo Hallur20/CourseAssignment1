@@ -61,6 +61,10 @@ public class Person implements Serializable {
         this.personid = personid;
     }
 
+    public Person(String a, String b, int i) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
     public Integer getPersonid() {
         return personid;
     }
