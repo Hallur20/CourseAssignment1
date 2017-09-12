@@ -52,7 +52,7 @@ public class Person implements Serializable {
     @JoinColumn(name = "HOBBYNAME", referencedColumnName = "HOBBYNAME")
     @ManyToOne
     private Hobby hobbyname;
-    @OneToMany(mappedBy = "id")
+    @OneToMany(mappedBy = "personid")
     private Collection<Infoentity> infoentityCollection;
 
     public Person() {

@@ -59,6 +59,6 @@ public class TestResource {
     @Path("cityinfo")
     @Produces(MediaType.APPLICATION_JSON)
     public String getStr() {
-        return gson.toJson("test");
+        return gson.toJson(f.getCityInfo());
     }
 }

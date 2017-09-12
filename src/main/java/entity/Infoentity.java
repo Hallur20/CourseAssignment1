@@ -50,12 +50,12 @@ public class Infoentity implements Serializable {
     @Size(max = 45)
     @Column(name = "STREET")
     private String street;
-    @JoinColumn(name = "ID", referencedColumnName = "PERSONID")
+    @JoinColumn(name = "COMPANYID", referencedColumnName = "COMPANYID")
     @ManyToOne
-    private Person id;
-    @JoinColumn(name = "ID", referencedColumnName = "COMPANYID")
+    private Company companyid;
+    @JoinColumn(name = "PERSONID", referencedColumnName = "PERSONID")
     @ManyToOne
-    private Company id1;
+    private Person personid;
 
     public Infoentity() {
     }
@@ -96,20 +96,20 @@ public class Infoentity implements Serializable {
         this.street = street;
     }
 
-    public Person getId() {
-        return id;
+    public Company getCompanyid() {
+        return companyid;
     }
 
-    public void setId(Person id) {
-        this.id = id;
+    public void setCompanyid(Company companyid) {
+        this.companyid = companyid;
     }
 
-    public Company getId1() {
-        return id1;
+    public Person getPersonid() {
+        return personid;
     }
 
-    public void setId1(Company id1) {
-        this.id1 = id1;
+    public void setPersonid(Person personid) {
+        this.personid = personid;
     }
 
     @Override
