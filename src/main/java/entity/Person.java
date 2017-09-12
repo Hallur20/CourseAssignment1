@@ -8,16 +8,16 @@ package entity;
 import java.io.Serializable;
 import java.util.Collection;
 import javax.persistence.Basic;
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
-import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlRootElement;
@@ -25,7 +25,7 @@ import javax.xml.bind.annotation.XmlTransient;
 
 /**
  *
- * @author Hallur
+ * @author hvn15
  */
 @Entity
 @Table(name = "PERSON")
@@ -49,20 +49,17 @@ public class Person implements Serializable {
     @Size(max = 45)
     @Column(name = "LASTNAME")
     private String lastname;
-    @OneToMany(mappedBy = "personid")
-    private Collection<Hobby> hobbyCollection;
-    @OneToOne(cascade = CascadeType.ALL, mappedBy = "person")
-    private Infoentity infoentity;
+    @JoinColumn(name = "HOBBYNAME", referencedColumnName = "HOBBYNAME")
+    @ManyToOne
+    private Hobby hobbyname;
+    @OneToMany(mappedBy = "id")
+    private Collection<Infoentity> infoentityCollection;
 
     public Person() {
     }
 
     public Person(Integer personid) {
         this.personid = personid;
-    }
-
-    public Person(String a, String b, int i) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
     public Integer getPersonid() {
@@ -89,21 +86,21 @@ public class Person implements Serializable {
         this.lastname = lastname;
     }
 
+    public Hobby getHobbyname() {
+        return hobbyname;
+    }
+
+    public void setHobbyname(Hobby hobbyname) {
+        this.hobbyname = hobbyname;
+    }
+
     @XmlTransient
-    public Collection<Hobby> getHobbyCollection() {
-        return hobbyCollection;
+    public Collection<Infoentity> getInfoentityCollection() {
+        return infoentityCollection;
     }
 
-    public void setHobbyCollection(Collection<Hobby> hobbyCollection) {
-        this.hobbyCollection = hobbyCollection;
-    }
-
-    public Infoentity getInfoentity() {
-        return infoentity;
-    }
-
-    public void setInfoentity(Infoentity infoentity) {
-        this.infoentity = infoentity;
+    public void setInfoentityCollection(Collection<Infoentity> infoentityCollection) {
+        this.infoentityCollection = infoentityCollection;
     }
 
     @Override
