@@ -6,6 +6,7 @@
 package facade;
 
 import entity.Cityinfo;
+import entity.Infoentity;
 import entity.Person;
 import java.util.ArrayList;
 import java.util.List;
@@ -55,7 +56,6 @@ public class Factory {
         try {
             List<Person> q = em.createQuery("SELECT p FROM Person p").getResultList();
             String s = "";
-            List<Person> a;
             for(int i = 0; i < q.size(); i++){
                 s += "personid: " + q.get(i).getPersonid();
                 s += ", first_name: " + q.get(i).getFirstname();
@@ -65,6 +65,23 @@ public class Factory {
             return s;
         } finally {
 
+        }
+    }
+    public String getPersonContactInfo(){
+        EntityManager em = emf.createEntityManager();
+        try {
+            List<Infoentity> q = em.createQuery("SELECT i FROM Infoentity i").getResultList();
+            String s = "";
+            for(int i = 0; i < q.size(); i++){
+                s += "company_id: " + q.get(i).getCompanyid();
+                s += ", person_id: " + q.get(i).getPersonid().getPersonid();
+                s += ", email: " + q.get(i).getEmail();
+                s += ", zip: " + q.get(i).getZip();
+                s += ", phone_number: " + q.get(i).getPhonenumber();
+                s += ", street: " + q.get(i).getStreet();
+            }
+            return s;
+        } finally {
         }
     }
 
