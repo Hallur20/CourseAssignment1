@@ -6,67 +6,62 @@
 package entity;
 
 import java.io.Serializable;
-import java.util.Collection;
 import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
-import javax.persistence.OneToMany;
-import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlRootElement;
-import javax.xml.bind.annotation.XmlTransient;
 
 /**
  *
- * @author Hallur
+ * @author hvn15
  */
 @Entity
 @Table(name = "INFOENTITY")
 @XmlRootElement
 @NamedQueries({
     @NamedQuery(name = "Infoentity.findAll", query = "SELECT i FROM Infoentity i")
-    , @NamedQuery(name = "Infoentity.findById", query = "SELECT i FROM Infoentity i WHERE i.id = :id")
-    , @NamedQuery(name = "Infoentity.findByEmail", query = "SELECT i FROM Infoentity i WHERE i.email = :email")})
+    , @NamedQuery(name = "Infoentity.findByEmail", query = "SELECT i FROM Infoentity i WHERE i.email = :email")
+    , @NamedQuery(name = "Infoentity.findByZip", query = "SELECT i FROM Infoentity i WHERE i.zip = :zip")
+    , @NamedQuery(name = "Infoentity.findByPhonenumber", query = "SELECT i FROM Infoentity i WHERE i.phonenumber = :phonenumber")
+    , @NamedQuery(name = "Infoentity.findByStreet", query = "SELECT i FROM Infoentity i WHERE i.street = :street")})
 public class Infoentity implements Serializable {
 
     private static final long serialVersionUID = 1L;
+    // @Pattern(regexp="[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?", message="Invalid email")//if the field contains email address consider using this annotation to enforce field validation
     @Id
     @Basic(optional = false)
     @NotNull
-    @Column(name = "ID")
-    private Integer id;
-    // @Pattern(regexp="[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?", message="Invalid email")//if the field contains email address consider using this annotation to enforce field validation
-    @Size(max = 45)
-    @Column(name = "email")
+    @Size(min = 1, max = 45)
+    @Column(name = "EMAIL")
     private String email;
-    @OneToMany(mappedBy = "id")
-    private Collection<Address> addressCollection;
-    @JoinColumn(name = "ID", referencedColumnName = "PERSONID", insertable = false, updatable = false)
-    @OneToOne(optional = false)
-    private Person person;
-    @JoinColumn(name = "ID", referencedColumnName = "COMPANYID", insertable = false, updatable = false)
-    @OneToOne(optional = false)
-    private Company company;
+    @Size(max = 45)
+    @Column(name = "ZIP")
+    private String zip;
+    @Column(name = "PHONENUMBER")
+    private Integer phonenumber;
+    @Size(max = 45)
+    @Column(name = "STREET")
+    private String street;
+    @JoinColumn(name = "COMPANYID", referencedColumnName = "COMPANYID")
+    @ManyToOne
+    private Company companyid;
+    @JoinColumn(name = "PERSONID", referencedColumnName = "PERSONID")
+    @ManyToOne
+    private Person personid;
 
     public Infoentity() {
     }
 
-    public Infoentity(Integer id) {
-        this.id = id;
-    }
-
-    public Integer getId() {
-        return id;
-    }
-
-    public void setId(Integer id) {
-        this.id = id;
+    public Infoentity(String email) {
+        this.email = email;
     }
 
     public String getEmail() {
@@ -77,35 +72,50 @@ public class Infoentity implements Serializable {
         this.email = email;
     }
 
-    @XmlTransient
-    public Collection<Address> getAddressCollection() {
-        return addressCollection;
+    public String getZip() {
+        return zip;
     }
 
-    public void setAddressCollection(Collection<Address> addressCollection) {
-        this.addressCollection = addressCollection;
+    public void setZip(String zip) {
+        this.zip = zip;
     }
 
-    public Person getPerson() {
-        return person;
+    public Integer getPhonenumber() {
+        return phonenumber;
     }
 
-    public void setPerson(Person person) {
-        this.person = person;
+    public void setPhonenumber(Integer phonenumber) {
+        this.phonenumber = phonenumber;
     }
 
-    public Company getCompany() {
-        return company;
+    public String getStreet() {
+        return street;
     }
 
-    public void setCompany(Company company) {
-        this.company = company;
+    public void setStreet(String street) {
+        this.street = street;
+    }
+
+    public Company getCompanyid() {
+        return companyid;
+    }
+
+    public void setCompanyid(Company companyid) {
+        this.companyid = companyid;
+    }
+
+    public Person getPersonid() {
+        return personid;
+    }
+
+    public void setPersonid(Person personid) {
+        this.personid = personid;
     }
 
     @Override
     public int hashCode() {
         int hash = 0;
-        hash += (id != null ? id.hashCode() : 0);
+        hash += (email != null ? email.hashCode() : 0);
         return hash;
     }
 
@@ -116,7 +126,7 @@ public class Infoentity implements Serializable {
             return false;
         }
         Infoentity other = (Infoentity) object;
-        if ((this.id == null && other.id != null) || (this.id != null && !this.id.equals(other.id))) {
+        if ((this.email == null && other.email != null) || (this.email != null && !this.email.equals(other.email))) {
             return false;
         }
         return true;
@@ -124,7 +134,7 @@ public class Infoentity implements Serializable {
 
     @Override
     public String toString() {
-        return "entity.Infoentity[ id=" + id + " ]";
+        return "entity.Infoentity[ email=" + email + " ]";
     }
     
 }

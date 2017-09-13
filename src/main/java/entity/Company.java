@@ -6,22 +6,23 @@
 package entity;
 
 import java.io.Serializable;
+import java.util.Collection;
 import javax.persistence.Basic;
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
-import javax.persistence.OneToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlRootElement;
+import javax.xml.bind.annotation.XmlTransient;
 
 /**
  *
- * @author Hallur
+ * @author hvn15
  */
 @Entity
 @Table(name = "COMPANY")
@@ -33,7 +34,7 @@ import javax.xml.bind.annotation.XmlRootElement;
     , @NamedQuery(name = "Company.findByCompanydescription", query = "SELECT c FROM Company c WHERE c.companydescription = :companydescription")
     , @NamedQuery(name = "Company.findByCvr", query = "SELECT c FROM Company c WHERE c.cvr = :cvr")
     , @NamedQuery(name = "Company.findByNumemployees", query = "SELECT c FROM Company c WHERE c.numemployees = :numemployees")
-    , @NamedQuery(name = "Company.findByMarketvalue", query = "SELECT c FROM Company c WHERE c.marketvalue = :marketvalue")})
+    , @NamedQuery(name = "Company.findByMarkeyvalue", query = "SELECT c FROM Company c WHERE c.markeyvalue = :markeyvalue")})
 public class Company implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -53,10 +54,10 @@ public class Company implements Serializable {
     @Column(name = "NUMEMPLOYEES")
     private Integer numemployees;
     // @Max(value=?)  @Min(value=?)//if you know range of your decimal fields consider using these annotations to enforce field validation
-    @Column(name = "MARKETVALUE")
-    private Double marketvalue;
-    @OneToOne(cascade = CascadeType.ALL, mappedBy = "company")
-    private Infoentity infoentity;
+    @Column(name = "MARKEYVALUE")
+    private Double markeyvalue;
+    @OneToMany(mappedBy = "companyid")
+    private Collection<Infoentity> infoentityCollection;
 
     public Company() {
     }
@@ -105,20 +106,21 @@ public class Company implements Serializable {
         this.numemployees = numemployees;
     }
 
-    public Double getMarketvalue() {
-        return marketvalue;
+    public Double getMarkeyvalue() {
+        return markeyvalue;
     }
 
-    public void setMarketvalue(Double marketvalue) {
-        this.marketvalue = marketvalue;
+    public void setMarkeyvalue(Double markeyvalue) {
+        this.markeyvalue = markeyvalue;
     }
 
-    public Infoentity getInfoentity() {
-        return infoentity;
+    @XmlTransient
+    public Collection<Infoentity> getInfoentityCollection() {
+        return infoentityCollection;
     }
 
-    public void setInfoentity(Infoentity infoentity) {
-        this.infoentity = infoentity;
+    public void setInfoentityCollection(Collection<Infoentity> infoentityCollection) {
+        this.infoentityCollection = infoentityCollection;
     }
 
     @Override

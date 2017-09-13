@@ -19,7 +19,7 @@ import javax.xml.bind.annotation.XmlRootElement;
 
 /**
  *
- * @author Hallur
+ * @author hvn15
  */
 @Entity
 @Table(name = "PHONE")
@@ -27,7 +27,7 @@ import javax.xml.bind.annotation.XmlRootElement;
 @NamedQueries({
     @NamedQuery(name = "Phone.findAll", query = "SELECT p FROM Phone p")
     , @NamedQuery(name = "Phone.findByPhonenumber", query = "SELECT p FROM Phone p WHERE p.phonenumber = :phonenumber")
-    , @NamedQuery(name = "Phone.findByDescription", query = "SELECT p FROM Phone p WHERE p.description = :description")})
+    , @NamedQuery(name = "Phone.findByPhonedescription", query = "SELECT p FROM Phone p WHERE p.phonedescription = :phonedescription")})
 public class Phone implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -37,8 +37,8 @@ public class Phone implements Serializable {
     @Column(name = "PHONENUMBER")
     private Integer phonenumber;
     @Size(max = 45)
-    @Column(name = "DESCRIPTION")
-    private String description;
+    @Column(name = "PHONEDESCRIPTION")
+    private String phonedescription;
 
     public Phone() {
     }
@@ -55,12 +55,12 @@ public class Phone implements Serializable {
         this.phonenumber = phonenumber;
     }
 
-    public String getDescription() {
-        return description;
+    public String getPhonedescription() {
+        return phonedescription;
     }
 
-    public void setDescription(String description) {
-        this.description = description;
+    public void setPhonedescription(String phonedescription) {
+        this.phonedescription = phonedescription;
     }
 
     @Override
