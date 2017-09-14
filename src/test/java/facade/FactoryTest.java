@@ -57,38 +57,6 @@ public class FactoryTest {
     public void tearDown() {
     }
     
-    
-
-    /**
-     * Test of addEntityManagerFactory method, of class Factory.
-     *//*
-    @Test
-    public void testAddEntityManagerFactory() {
-        System.out.println("addEntityManagerFactory");
-        EntityManagerFactory emf = null;
-        Factory instance = new Factory();
-        instance.addEntityManagerFactory(emf);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
-    }
-
-    /**
-     * Test of getEntityManager method, of class Factory.
-     *//*
-    @Test
-    public void testGetEntityManager() {
-        System.out.println("getEntityManager");
-        Factory instance = new Factory();
-        EntityManager expResult = null;
-        EntityManager result = instance.getEntityManager();
-        assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
-    }
-
-    /**
-     * Test of getCityInfo method, of class Factory.
-     */
     @Test
     public void testGetCityInfo() {
         System.out.println("getCityInfo");
@@ -97,49 +65,5 @@ public class FactoryTest {
         List<Cityinfo> result = factory.getCityInfo();
         System.out.println(result);
         assertTrue(result.isEmpty());
-    }
-
-    /**
-     * Test of getPersonInfo method, of class Factory.
-     *//*
-    @Test
-    public void testGetPersonInfo() {
-        System.out.println("getPersonInfo");
-        Factory instance = new Factory();
-        String expResult = "";
-        String result = instance.getPersonInfo();
-        assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
-    }
-
-    /**
-     * Test of getPersonContactInfo method, of class Factory.
-     *//*
-    @Test
-    public void testGetPersonContactInfo() {
-        System.out.println("getPersonContactInfo");
-        Factory instance = new Factory();
-        String expResult = "";
-        String result = instance.getPersonContactInfo();
-        assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
-    }
-
-    /**
-     * Test of getPersonInfoId method, of class Factory.
-     *//*
-    @Test
-    public void testGetPersonInfoId() {
-        System.out.println("getPersonInfoId");
-        Long id = null;
-        Factory instance = new Factory();
-        String expResult = "";
-        String result = instance.getPersonInfoId(id);
-        assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
-    }*/
-    
+    }    
 }
