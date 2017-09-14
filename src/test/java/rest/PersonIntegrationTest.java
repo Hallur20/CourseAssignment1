@@ -1,5 +1,6 @@
 package rest;
 
+import entity.Cityinfo;
 import io.restassured.RestAssured;
 import io.restassured.parsing.Parser;
 import static io.restassured.RestAssured.given;
@@ -42,6 +43,11 @@ public class PersonIntegrationTest {
         given().
         when().get().
         then().statusCode(200);
+    }
+    
+    @Test
+    public void postGetDeleteCityinfo(){
+        
     }
     
 }

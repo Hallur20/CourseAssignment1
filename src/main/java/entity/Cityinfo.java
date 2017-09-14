@@ -88,5 +88,5 @@ public class Cityinfo implements Serializable {
     public String toString() {
         return "entity.Cityinfo[ zip=" + zip + " ]";
     }
-    
+      
 }
