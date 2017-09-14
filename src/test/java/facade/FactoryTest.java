@@ -92,10 +92,11 @@ public class FactoryTest {
     @Test
     public void testGetCityInfo() {
         System.out.println("getCityInfo");
-        Factory instance = new Factory();
-        List<Cityinfo> result = instance.getCityInfo();
+        Factory factory = new Factory();
+        factory.addEntityManagerFactory(emf);
+        List<Cityinfo> result = factory.getCityInfo();
         System.out.println(result);
-        assertFalse(result.isEmpty());
+        assertTrue(result.isEmpty());
     }
 
     /**
