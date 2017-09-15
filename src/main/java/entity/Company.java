@@ -6,146 +6,77 @@
 package entity;
 
 import java.io.Serializable;
-import java.util.Collection;
-import javax.persistence.Basic;
-import javax.persistence.Column;
+import javax.persistence.DiscriminatorValue;
 import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.NamedQueries;
-import javax.persistence.NamedQuery;
-import javax.persistence.OneToMany;
-import javax.persistence.Table;
-import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Size;
-import javax.xml.bind.annotation.XmlRootElement;
-import javax.xml.bind.annotation.XmlTransient;
 
 /**
  *
  * @author hvn15
  */
 @Entity
-@Table(name = "COMPANY")
-@XmlRootElement
-@NamedQueries({
-    @NamedQuery(name = "Company.findAll", query = "SELECT c FROM Company c")
-    , @NamedQuery(name = "Company.findByCompanyid", query = "SELECT c FROM Company c WHERE c.companyid = :companyid")
-    , @NamedQuery(name = "Company.findByCompanyname", query = "SELECT c FROM Company c WHERE c.companyname = :companyname")
-    , @NamedQuery(name = "Company.findByCompanydescription", query = "SELECT c FROM Company c WHERE c.companydescription = :companydescription")
-    , @NamedQuery(name = "Company.findByCvr", query = "SELECT c FROM Company c WHERE c.cvr = :cvr")
-    , @NamedQuery(name = "Company.findByNumemployees", query = "SELECT c FROM Company c WHERE c.numemployees = :numemployees")
-    , @NamedQuery(name = "Company.findByMarkeyvalue", query = "SELECT c FROM Company c WHERE c.markeyvalue = :markeyvalue")})
-public class Company implements Serializable {
+public class Company extends Infoentity implements Serializable {
 
     private static final long serialVersionUID = 1L;
-    @Id
-    @Basic(optional = false)
-    @NotNull
-    @Column(name = "COMPANYID")
-    private Integer companyid;
-    @Size(max = 45)
-    @Column(name = "COMPANYNAME")
-    private String companyname;
-    @Size(max = 80)
-    @Column(name = "COMPANYDESCRIPTION")
-    private String companydescription;
-    @Column(name = "CVR")
-    private Integer cvr;
-    @Column(name = "NUMEMPLOYEES")
-    private Integer numemployees;
-    // @Max(value=?)  @Min(value=?)//if you know range of your decimal fields consider using these annotations to enforce field validation
-    @Column(name = "MARKEYVALUE")
-    private Double markeyvalue;
-    @OneToMany(mappedBy = "companyid")
-    private Collection<Infoentity> infoentityCollection;
+
+    private int cvr;
+    private String name;
+    private String description;
+    private int numEmployees;
+    private double marketValue;
+
+    public Company(Long cvr, String name, String description, int numEmployees, double marketValue) {
+        this.name = name;
+        this.description = description;
+        this.numEmployees = numEmployees;
+        this.marketValue = marketValue;
+    }
 
     public Company() {
     }
 
-    public Company(Integer companyid) {
-        this.companyid = companyid;
-    }
-
-    public Integer getCompanyid() {
-        return companyid;
-    }
-
-    public void setCompanyid(Integer companyid) {
-        this.companyid = companyid;
-    }
-
-    public String getCompanyname() {
-        return companyname;
-    }
-
-    public void setCompanyname(String companyname) {
-        this.companyname = companyname;
-    }
-
-    public String getCompanydescription() {
-        return companydescription;
-    }
-
-    public void setCompanydescription(String companydescription) {
-        this.companydescription = companydescription;
-    }
-
-    public Integer getCvr() {
+    public int getCvr() {
         return cvr;
     }
 
-    public void setCvr(Integer cvr) {
+    public void setCvr(int cvr) {
         this.cvr = cvr;
     }
 
-    public Integer getNumemployees() {
-        return numemployees;
+    public String getName() {
+        return name;
     }
 
-    public void setNumemployees(Integer numemployees) {
-        this.numemployees = numemployees;
+    public void setName(String name) {
+        this.name = name;
     }
 
-    public Double getMarkeyvalue() {
-        return markeyvalue;
+    public String getDescription() {
+        return description;
     }
 
-    public void setMarkeyvalue(Double markeyvalue) {
-        this.markeyvalue = markeyvalue;
+    public void setDescription(String description) {
+        this.description = description;
     }
 
-    @XmlTransient
-    public Collection<Infoentity> getInfoentityCollection() {
-        return infoentityCollection;
+    public int getNumEmployees() {
+        return numEmployees;
     }
 
-    public void setInfoentityCollection(Collection<Infoentity> infoentityCollection) {
-        this.infoentityCollection = infoentityCollection;
+    public void setNumEmployees(int numEmployees) {
+        this.numEmployees = numEmployees;
     }
 
-    @Override
-    public int hashCode() {
-        int hash = 0;
-        hash += (companyid != null ? companyid.hashCode() : 0);
-        return hash;
+    public double getMarketValue() {
+        return marketValue;
     }
 
-    @Override
-    public boolean equals(Object object) {
-        // TODO: Warning - this method won't work in the case the id fields are not set
-        if (!(object instanceof Company)) {
-            return false;
-        }
-        Company other = (Company) object;
-        if ((this.companyid == null && other.companyid != null) || (this.companyid != null && !this.companyid.equals(other.companyid))) {
-            return false;
-        }
-        return true;
+    public void setMarketValue(double marketValue) {
+        this.marketValue = marketValue;
     }
 
     @Override
     public String toString() {
-        return "entity.Company[ companyid=" + companyid + " ]";
+        return "Company{" + "cvr=" + cvr + ", name=" + name + ", description=" + description + ", numEmployees=" + numEmployees + ", marketValue=" + marketValue + '}';
     }
-    
+
 }

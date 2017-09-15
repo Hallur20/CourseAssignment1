@@ -6,82 +6,43 @@
 package entity;
 
 import java.io.Serializable;
-import java.util.Collection;
-import javax.persistence.Basic;
-import javax.persistence.Column;
+import java.util.List;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.NamedQueries;
-import javax.persistence.NamedQuery;
-import javax.persistence.OneToMany;
-import javax.persistence.Table;
-import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Size;
-import javax.xml.bind.annotation.XmlRootElement;
-import javax.xml.bind.annotation.XmlTransient;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
 
 /**
  *
  * @author hvn15
  */
 @Entity
-@Table(name = "HOBBY")
-@XmlRootElement
-@NamedQueries({
-    @NamedQuery(name = "Hobby.findAll", query = "SELECT h FROM Hobby h")
-    , @NamedQuery(name = "Hobby.findByHobbyname", query = "SELECT h FROM Hobby h WHERE h.hobbyname = :hobbyname")
-    , @NamedQuery(name = "Hobby.findByHobbydescription", query = "SELECT h FROM Hobby h WHERE h.hobbydescription = :hobbydescription")})
 public class Hobby implements Serializable {
 
     private static final long serialVersionUID = 1L;
     @Id
-    @Basic(optional = false)
-    @NotNull
-    @Size(min = 1, max = 45)
-    @Column(name = "HOBBYNAME")
-    private String hobbyname;
-    @Size(max = 45)
-    @Column(name = "HOBBYDESCRIPTION")
-    private String hobbydescription;
-    @OneToMany(mappedBy = "hobbyname")
-    private Collection<Person> personCollection;
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    private Long id;
+    private String name;
+    private String description;
 
-    public Hobby() {
+    
+
+    public Long getId() {
+        return id;
     }
 
-    public Hobby(String hobbyname) {
-        this.hobbyname = hobbyname;
-    }
-
-    public String getHobbyname() {
-        return hobbyname;
-    }
-
-    public void setHobbyname(String hobbyname) {
-        this.hobbyname = hobbyname;
-    }
-
-    public String getHobbydescription() {
-        return hobbydescription;
-    }
-
-    public void setHobbydescription(String hobbydescription) {
-        this.hobbydescription = hobbydescription;
-    }
-
-    @XmlTransient
-    public Collection<Person> getPersonCollection() {
-        return personCollection;
-    }
-
-    public void setPersonCollection(Collection<Person> personCollection) {
-        this.personCollection = personCollection;
+    public void setId(Long id) {
+        this.id = id;
     }
 
     @Override
     public int hashCode() {
         int hash = 0;
-        hash += (hobbyname != null ? hobbyname.hashCode() : 0);
+        hash += (id != null ? id.hashCode() : 0);
         return hash;
     }
 
@@ -92,7 +53,7 @@ public class Hobby implements Serializable {
             return false;
         }
         Hobby other = (Hobby) object;
-        if ((this.hobbyname == null && other.hobbyname != null) || (this.hobbyname != null && !this.hobbyname.equals(other.hobbyname))) {
+        if ((this.id == null && other.id != null) || (this.id != null && !this.id.equals(other.id))) {
             return false;
         }
         return true;
@@ -100,7 +61,7 @@ public class Hobby implements Serializable {
 
     @Override
     public String toString() {
-        return "entity.Hobby[ hobbyname=" + hobbyname + " ]";
+        return "entity.Hobby[ id=" + id + " ]";
     }
-    
+
 }

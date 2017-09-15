@@ -6,68 +6,72 @@
 package entity;
 
 import java.io.Serializable;
-import javax.persistence.Basic;
-import javax.persistence.Column;
+import java.util.List;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.NamedQueries;
-import javax.persistence.NamedQuery;
-import javax.persistence.Table;
-import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Size;
-import javax.xml.bind.annotation.XmlRootElement;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 
 /**
  *
  * @author hvn15
  */
 @Entity
-@Table(name = "ADDRESS")
-@XmlRootElement
-@NamedQueries({
-    @NamedQuery(name = "Address.findAll", query = "SELECT a FROM Address a")
-    , @NamedQuery(name = "Address.findByStreet", query = "SELECT a FROM Address a WHERE a.street = :street")
-    , @NamedQuery(name = "Address.findByAdditionalinfo", query = "SELECT a FROM Address a WHERE a.additionalinfo = :additionalinfo")})
 public class Address implements Serializable {
 
     private static final long serialVersionUID = 1L;
     @Id
-    @Basic(optional = false)
-    @NotNull
-    @Size(min = 1, max = 45)
-    @Column(name = "STREET")
-    private String street;
-    @Size(max = 45)
-    @Column(name = "ADDITIONALINFO")
-    private String additionalinfo;
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    private Long AdressId;
+    private String additionalInfo;
 
-    public Address() {
+   @ManyToOne(optional=false) 
+     @JoinColumn(name="zip", referencedColumnName="zip")
+     public Cityinfo cityinfo;
+
+    public Long getAdressId() {
+        return AdressId;
     }
 
-    public Address(String street) {
-        this.street = street;
+    public void setAdressId(Long AdressId) {
+        this.AdressId = AdressId;
     }
 
-    public String getStreet() {
-        return street;
+    public Cityinfo getCityinfo() {
+        return cityinfo;
     }
 
-    public void setStreet(String street) {
-        this.street = street;
+    public void setCityinfo(Cityinfo cityinfo) {
+        this.cityinfo = cityinfo;
+    }
+    
+   
+    
+    
+    public String getAdditionalInfo() {
+        return additionalInfo;
     }
 
-    public String getAdditionalinfo() {
-        return additionalinfo;
+    public void setAdditionalInfo(String additionalInfo) {
+        this.additionalInfo = additionalInfo;
     }
 
-    public void setAdditionalinfo(String additionalinfo) {
-        this.additionalinfo = additionalinfo;
+    public Long getId() {
+        return AdressId;
+    }
+
+    public void setId(Long id) {
+        this.AdressId = id;
     }
 
     @Override
     public int hashCode() {
         int hash = 0;
-        hash += (street != null ? street.hashCode() : 0);
+        hash += (AdressId != null ? AdressId.hashCode() : 0);
         return hash;
     }
 
@@ -78,15 +82,12 @@ public class Address implements Serializable {
             return false;
         }
         Address other = (Address) object;
-        if ((this.street == null && other.street != null) || (this.street != null && !this.street.equals(other.street))) {
-            return false;
-        }
-        return true;
+        return !((this.AdressId == null && other.AdressId != null) || (this.AdressId != null && !this.AdressId.equals(other.AdressId)));
     }
 
     @Override
     public String toString() {
-        return "entity.Address[ street=" + street + " ]";
+        return "entity.Address[ id=" + AdressId + " ]";
     }
-    
+
 }

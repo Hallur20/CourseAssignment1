@@ -57,46 +57,27 @@ public class Factory {
             List<Person> q = em.createQuery("SELECT p FROM Person p").getResultList();
             String s = "";
             for(int i = 0; i < q.size(); i++){
-                s += "personid: " + q.get(i).getPersonid();
-                s += ", first_name: " + q.get(i).getFirstname();
-                s += ", last_name: " + q.get(i).getLastname();
-                s += ", hobby: " + q.get(i).getHobbyname().getHobbyname();
+                s += "personid: " + q.get(i).getId();
+                s += ", first_name: " + q.get(i).getFirstName();
+                s += ", last_name: " + q.get(i).getLastName();
             }
             return s;
         } finally {
 
         }
     }
-    public String getPersonContactInfo(){
-        EntityManager em = emf.createEntityManager();
-        try {
-            List<Infoentity> q = em.createQuery("SELECT i FROM Infoentity i").getResultList();
-            String s = "";
-            for(int i = 0; i < q.size(); i++){
-                s += "company_id: " + q.get(i).getCompanyid();
-                s += ", person_id: " + q.get(i).getPersonid().getPersonid();
-                s += ", email: " + q.get(i).getEmail();
-                s += ", zip: " + q.get(i).getZip();
-                s += ", phone_number: " + q.get(i).getPhonenumber();
-                s += ", street: " + q.get(i).getStreet();
-            }
-            return s;
-        } finally {
-        }
-    }
-
+    
     public String getPersonInfoId(Long id) {
         EntityManager em = emf.createEntityManager();
         try {
-            TypedQuery<Person> q = em.createQuery("select e from Person e where e.personid = :personid", Person.class);
+            TypedQuery<Person> q = em.createQuery("select e from Person e where e.id = :personid", Person.class);
             q.setParameter("personid", id);
             List<Person> list = q.getResultList();
             String s = "";
                         for(int i = 0; i < list.size(); i++){
-                s += "personid: " + list.get(i).getPersonid();
-                s += ", first_name: " + list.get(i).getFirstname();
-                s += ", last_name: " + list.get(i).getLastname();
-                s += ", hobby: " + list.get(i).getHobbyname().getHobbyname();
+                s += "personid: " + list.get(i).getId();
+                s += ", first_name: " + list.get(i).getFirstName();
+                s += ", last_name: " + list.get(i).getLastName();
             }
             return s;
         } finally {

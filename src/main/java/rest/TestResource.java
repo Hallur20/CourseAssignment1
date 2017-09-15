@@ -61,11 +61,4 @@ public class TestResource {
     public String getStr() {
         return gson.toJson(f.getCityInfo());
     }
-    
-    @GET
-    @Path("contactinfo")
-    @Produces(MediaType.APPLICATION_JSON)
-    public String getThis(){
-        return gson.toJson(f.getPersonContactInfo());
-    }
 }

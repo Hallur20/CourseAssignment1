@@ -6,46 +6,36 @@
 package entity;
 
 import java.io.Serializable;
-import javax.persistence.Basic;
-import javax.persistence.Column;
+import java.util.List;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.NamedQueries;
-import javax.persistence.NamedQuery;
-import javax.persistence.Table;
-import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Size;
-import javax.xml.bind.annotation.XmlRootElement;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 
 /**
  *
  * @author hvn15
  */
 @Entity
-@Table(name = "CITYINFO")
-@XmlRootElement
-@NamedQueries({
-    @NamedQuery(name = "Cityinfo.findAll", query = "SELECT c FROM Cityinfo c")
-    , @NamedQuery(name = "Cityinfo.findByZip", query = "SELECT c FROM Cityinfo c WHERE c.zip = :zip")
-    , @NamedQuery(name = "Cityinfo.findByCity", query = "SELECT c FROM Cityinfo c WHERE c.city = :city")})
 public class Cityinfo implements Serializable {
 
     private static final long serialVersionUID = 1L;
     @Id
-    @Basic(optional = false)
-    @NotNull
-    @Size(min = 1, max = 45)
-    @Column(name = "ZIP")
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private String zip;
-    @Size(max = 45)
-    @Column(name = "CITY")
     private String city;
 
-    public Cityinfo() {
+
+    public Cityinfo(String zip, String city) {
+        this.zip = zip;
+        this.city = city;
     }
 
-    public Cityinfo(String zip) {
-        this.zip = zip;
+    public Cityinfo() {
     }
 
     public String getZip() {
@@ -78,15 +68,12 @@ public class Cityinfo implements Serializable {
             return false;
         }
         Cityinfo other = (Cityinfo) object;
-        if ((this.zip == null && other.zip != null) || (this.zip != null && !this.zip.equals(other.zip))) {
-            return false;
-        }
-        return true;
+        return !((this.zip == null && other.zip != null) || (this.zip != null && !this.zip.equals(other.zip)));
     }
 
     @Override
     public String toString() {
-        return "entity.Cityinfo[ zip=" + zip + " ]";
+        return "Cityinfo{" + "zip=" + zip + ", city=" + city + '}';
     }
-      
+
 }

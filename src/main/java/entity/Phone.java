@@ -6,67 +6,55 @@
 package entity;
 
 import java.io.Serializable;
-import javax.persistence.Basic;
-import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.NamedQueries;
-import javax.persistence.NamedQuery;
-import javax.persistence.Table;
-import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Size;
-import javax.xml.bind.annotation.XmlRootElement;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 
 /**
  *
  * @author hvn15
  */
 @Entity
-@Table(name = "PHONE")
-@XmlRootElement
-@NamedQueries({
-    @NamedQuery(name = "Phone.findAll", query = "SELECT p FROM Phone p")
-    , @NamedQuery(name = "Phone.findByPhonenumber", query = "SELECT p FROM Phone p WHERE p.phonenumber = :phonenumber")
-    , @NamedQuery(name = "Phone.findByPhonedescription", query = "SELECT p FROM Phone p WHERE p.phonedescription = :phonedescription")})
 public class Phone implements Serializable {
 
     private static final long serialVersionUID = 1L;
     @Id
-    @Basic(optional = false)
-    @NotNull
-    @Column(name = "PHONENUMBER")
-    private Integer phonenumber;
-    @Size(max = 45)
-    @Column(name = "PHONEDESCRIPTION")
-    private String phonedescription;
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    private Long number;
+    private String description;
+
+    public Long getNumber() {
+        return number;
+    }
+
+    public void setNumber(Long number) {
+        this.number = number;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
+    public Phone(Long number, String description) {
+        this.number = number;
+        this.description = description;
+    }
 
     public Phone() {
-    }
-
-    public Phone(Integer phonenumber) {
-        this.phonenumber = phonenumber;
-    }
-
-    public Integer getPhonenumber() {
-        return phonenumber;
-    }
-
-    public void setPhonenumber(Integer phonenumber) {
-        this.phonenumber = phonenumber;
-    }
-
-    public String getPhonedescription() {
-        return phonedescription;
-    }
-
-    public void setPhonedescription(String phonedescription) {
-        this.phonedescription = phonedescription;
     }
 
     @Override
     public int hashCode() {
         int hash = 0;
-        hash += (phonenumber != null ? phonenumber.hashCode() : 0);
+        hash += (number != null ? number.hashCode() : 0);
         return hash;
     }
 
@@ -77,7 +65,7 @@ public class Phone implements Serializable {
             return false;
         }
         Phone other = (Phone) object;
-        if ((this.phonenumber == null && other.phonenumber != null) || (this.phonenumber != null && !this.phonenumber.equals(other.phonenumber))) {
+        if ((this.number == null && other.number != null) || (this.number != null && !this.number.equals(other.number))) {
             return false;
         }
         return true;
@@ -85,7 +73,7 @@ public class Phone implements Serializable {
 
     @Override
     public String toString() {
-        return "entity.Phone[ phonenumber=" + phonenumber + " ]";
+        return "Phone{" + "number=" + number + ", description=" + description + '}';
     }
-    
+
 }
