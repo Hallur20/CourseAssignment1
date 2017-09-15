@@ -27,7 +27,7 @@ public class FactoryTest {
     
     private EntityManagerFactory emf;
     private Factory f;
-    private String PU = "PU_DERBY";
+    private String PU = "pu";
     
     public FactoryTest() {
         f = new Factory();
@@ -36,7 +36,7 @@ public class FactoryTest {
     @BeforeClass 
     public static void setUpClass() {
         RestAssured.baseURI = "http://localhost";
-        RestAssured.port = 8080;
+        RestAssured.port = 3306;
         RestAssured.basePath = "/CourseAssignment1";
         RestAssured.defaultParser = Parser.JSON;
     }
@@ -64,6 +64,6 @@ public class FactoryTest {
         factory.addEntityManagerFactory(emf);
         List<Cityinfo> result = factory.getCityInfo();
         System.out.println(result);
-        assertTrue(result.isEmpty());
+        assertTrue(!result.isEmpty());
     }    
 }

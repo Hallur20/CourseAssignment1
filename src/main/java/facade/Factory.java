@@ -67,19 +67,13 @@ public class Factory {
         }
     }
     
-    public String getPersonInfoId(Long id) {
+    public List<Person> getPersonInfoId(Long id) {
         EntityManager em = emf.createEntityManager();
         try {
             TypedQuery<Person> q = em.createQuery("select e from Person e where e.id = :personid", Person.class);
             q.setParameter("personid", id);
             List<Person> list = q.getResultList();
-            String s = "";
-                        for(int i = 0; i < list.size(); i++){
-                s += "personid: " + list.get(i).getId();
-                s += ", first_name: " + list.get(i).getFirstName();
-                s += ", last_name: " + list.get(i).getLastName();
-            }
-            return s;
+            return list;
         } finally {
 
         }
