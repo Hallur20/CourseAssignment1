@@ -8,6 +8,7 @@ package rest;
 import com.google.gson.Gson;
 import deploy.DeploymentConfiguration;
 import facade.Factory;
+import java.lang.ProcessBuilder.Redirect.Type;
 import javax.persistence.Persistence;
 import javax.ws.rs.core.Context;
 import javax.ws.rs.core.UriInfo;
@@ -40,21 +41,49 @@ public class TestResource {
         f.addEntityManagerFactory(Persistence.createEntityManagerFactory(DeploymentConfiguration.PU_NAME));
         gson = new Gson();
     }
-    
+
     @GET
     @Path("complete")
     @Produces(MediaType.APPLICATION_JSON)
-    public String getPers(){
+    public String getPers() {
         return gson.toJson(f.getPersonInfo());
     }
-    
+
     @GET
     @Path("{id}")
     @Produces(MediaType.APPLICATION_JSON)
-    public String getPersId(@PathParam("id") Long id){
-        return gson.toJson(f.getPersonInfoId(id));
+    public String getPersId(@PathParam("id") Long id) {
+        try {
+            if (f.getPersonInfoId(id).isEmpty()) {
+                throw new QuoteNotFoundException("{\"code\": 404, \"message\": \"Quote with requested id: " + id + " not found\"} ");
+            }
+            return gson.toJson(f.getPersonInfoId(id));
+        } catch (QuoteNotFoundException e) {
+            return e.getMessage();
+        }
+    }
+
+    @GET
+    @Path("hobby")
+    @Produces(MediaType.APPLICATION_JSON)
+    public String getPersHobby() {
+        return gson.toJson(f.getPersonHobby());
     }
     
+    @GET
+    @Path("contact/{id}")
+    @Produces(MediaType.APPLICATION_JSON)
+        public String getPersIdContactInfo(@PathParam("id") Long id) {
+        try {
+            if (f.getPersonInfoId(id).isEmpty()) {
+                throw new QuoteNotFoundException("{\"code\": 404, \"message\": \"Quote with requested id: " + id + " not found\"} ");
+            }
+            return gson.toJson(f.getPersonContactInfo(id));
+        } catch (QuoteNotFoundException e) {
+            return e.getMessage();
+        }
+    }
+
     @GET
     @Path("cityinfo")
     @Produces(MediaType.APPLICATION_JSON)

@@ -42,7 +42,17 @@ public class Person extends Infoentity implements Serializable {
 
     public Person() {
     }
+
+    public List<Hobby> getHobbyList() {
+        return hobbyList;
+    }
+
+    public void setHobbyList(List<Hobby> hobbyList) {
+        this.hobbyList = hobbyList;
+    }
  
+    
+    
     public String getFirstName() {
         return firstName;
     }
@@ -61,7 +71,6 @@ public class Person extends Infoentity implements Serializable {
 
     @Override
     public String toString() {
-        return "Person{" + "firstName=" + firstName + ", lastName=" + lastName + '}';
+        return "Person{" + "firstName=" + firstName + ", lastName=" + lastName + ", hobbyList=" + hobbyList + '}';
     }
-    
 }

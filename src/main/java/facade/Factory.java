@@ -6,9 +6,11 @@
 package facade;
 
 import entity.Cityinfo;
+import entity.Hobby;
 import entity.Infoentity;
 import entity.Person;
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
@@ -51,22 +53,16 @@ public class Factory {
         }
     }
 
-    public String getPersonInfo() {
+    public List<Person> getPersonInfo() {
         EntityManager em = emf.createEntityManager();
         try {
             List<Person> q = em.createQuery("SELECT p FROM Person p").getResultList();
-            String s = "";
-            for(int i = 0; i < q.size(); i++){
-                s += "personid: " + q.get(i).getId();
-                s += ", first_name: " + q.get(i).getFirstName();
-                s += ", last_name: " + q.get(i).getLastName();
-            }
-            return s;
+            return q;
         } finally {
 
         }
     }
-    
+
     public List<Person> getPersonInfoId(Long id) {
         EntityManager em = emf.createEntityManager();
         try {
@@ -74,6 +70,33 @@ public class Factory {
             q.setParameter("personid", id);
             List<Person> list = q.getResultList();
             return list;
+        } finally {
+
+        }
+    }
+    
+    public List<Person> getPersonContactInfo(Long id){
+         EntityManager em = emf.createEntityManager();
+          try {
+            TypedQuery<Person> q = em.createQuery("select e.address from Person e where e.id = :personid", Person.class);
+            q.setParameter("personid", id);
+            List<Person> list = q.getResultList();
+            return list;
+        } finally {
+
+        }
+    }
+
+    public Collection<Hobby> getPersonHobby() {
+        EntityManager em = emf.createEntityManager();
+        try {
+            TypedQuery<Person> q = em.createQuery("select e from Person e where e.id =:personid", Person.class);
+            List<Person> list = q.getResultList();
+            Collection<Hobby> c = null;
+            for(int i = 0; i < list.size(); i++){
+                c = list.get(i).getHobbyList();
+            }
+            return c;
         } finally {
 
         }
