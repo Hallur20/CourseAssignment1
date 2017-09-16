@@ -64,6 +64,6 @@ public class FactoryTest {
         factory.addEntityManagerFactory(emf);
         List<Cityinfo> result = factory.getCityInfo();
         System.out.println(result);
-        assertTrue(!result.isEmpty());
+        assertTrue(result.isEmpty());
     }    
 }
