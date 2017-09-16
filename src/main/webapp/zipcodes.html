@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+<html>
+    <head>
+        <title>TODO supply a title</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <style>
+table {
+    font-family: arial, sans-serif;
+    border-collapse: collapse;
+    width: 100%;
+}
+
+td, th {
+    border: 1px solid #dddddd;
+    text-align: left;
+    padding: 8px;
+}
+
+tr:nth-child(even) {
+    background-color: #dddddd;
+}
+</style>
+    </head>
+    <body>
+        <h1>Get a list of all zip codes in denmark</h1>
+        <a href="index.html">back</a>
+        <div id="zips"></div>
+        <script>
+            fetch("api/person/cityinfo", {method: "get"})
+                    .then(function (response) {
+                        return response.json();
+                    })
+                    .then(function (json) {
+                        var str = "<table><tr><th>zip codes in denmark</th><th>place</th></tr>";
+                        for (var i = 0; i < json.length; i++) {
+                            str += "<tr><td>" + json[i].zip + "</td>";
+                            str += "<td>" + json[i].city + "</td></tr>";
+                        }
+                        str += "</table>";
+                        document.getElementById("zips").innerHTML = str;
+                    })
+                    .catch(function (error) {
+                        alert("there was an error");
+                    });
+        </script>
+    </body>
+</html>

@@ -43,10 +43,24 @@ public class TestResource {
     }
 
     @GET
+    @Path("empnum/{id}")
+    @Produces(MediaType.APPLICATION_JSON)
+    public String getPersNum(@PathParam("id") int id) {
+        return gson.toJson(f.getEmployeesNum(id));
+    }
+    
+    @GET
     @Path("complete")
     @Produces(MediaType.APPLICATION_JSON)
     public String getPers() {
         return gson.toJson(f.getPersonInfo());
+    }
+    
+        @GET
+    @Path("completeCompany")
+    @Produces(MediaType.APPLICATION_JSON)
+    public String getComp() {
+        return gson.toJson(f.getAllCompany());
     }
 
     @GET

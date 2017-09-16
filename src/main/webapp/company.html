@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+<html>
+    <head>
+        <title>TODO supply a title</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    </head>
+    <body>
+        <h1>Get a list of companies with more than xx employees</h1>
+        <div id="companies"></div>
+        <form onsubmit="test()">
+            <input type="text">
+            <input type="submit">
+        </form>
+        <a href="index.html">back</a>
+        <script>
+            function test(){
+                alert("test");
+            }
+            fetch("api/person/completeCompany", {method: "get"})
+                    .then(function (response) {
+                        return response.json();
+                    })
+                    .then(function (json) {
+                        for(var i = 0; i < json.length; i++){
+                            document.getElementById("companies").innerHTML += "<li>" +
+                            "id: " + json[i].id +
+                            ", cvr: " + json[i].cvr +
+                            ", description: " + json[i].description +
+                            ", email: " + json[i].email +
+                            ", market value: " + json[i].marketValue +
+                            ", name: " + json[i].name +
+                            ", num employees: " + json[i].numEmployees + 
+                            "</li>";
+                        }
+                    });
+        </script>
+    </body>
+</html>

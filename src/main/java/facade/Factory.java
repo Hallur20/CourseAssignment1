@@ -6,6 +6,7 @@
 package facade;
 
 import entity.Cityinfo;
+import entity.Company;
 import entity.Hobby;
 import entity.Infoentity;
 import entity.Person;
@@ -62,6 +63,28 @@ public class Factory {
 
         }
     }
+    public List<Company> getEmployeesNum(int num){
+                EntityManager em = emf.createEntityManager();
+        try {
+            TypedQuery<Company> q = em.createQuery("select e from Company e where e.numEmployees > :num", Company.class);
+            q.setParameter("num", num);
+            List<Company> list = q.getResultList();
+            return list;
+        } finally {
+
+        }
+    }
+
+    public List<Company> getAllCompany() {
+        EntityManager em = emf.createEntityManager();
+        try {
+            TypedQuery<Company> q = em.createQuery("select e from Company e", Company.class);
+            List<Company> list = q.getResultList();
+            return list;
+        } finally {
+
+        }
+    }
 
     public List<Person> getPersonInfoId(Long id) {
         EntityManager em = emf.createEntityManager();
@@ -74,10 +97,10 @@ public class Factory {
 
         }
     }
-    
-    public List<Person> getPersonContactInfo(Long id){
-         EntityManager em = emf.createEntityManager();
-          try {
+
+    public List<Person> getPersonContactInfo(Long id) {
+        EntityManager em = emf.createEntityManager();
+        try {
             TypedQuery<Person> q = em.createQuery("select e.address from Person e where e.id = :personid", Person.class);
             q.setParameter("personid", id);
             List<Person> list = q.getResultList();
@@ -93,7 +116,7 @@ public class Factory {
             TypedQuery<Person> q = em.createQuery("select e from Person e where e.id =:personid", Person.class);
             List<Person> list = q.getResultList();
             Collection<Hobby> c = null;
-            for(int i = 0; i < list.size(); i++){
+            for (int i = 0; i < list.size(); i++) {
                 c = list.get(i).getHobbyList();
             }
             return c;
