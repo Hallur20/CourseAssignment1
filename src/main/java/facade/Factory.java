@@ -66,7 +66,7 @@ public class Factory {
     public List<Company> getEmployeesNum(int num){
                 EntityManager em = emf.createEntityManager();
         try {
-            TypedQuery<Company> q = em.createQuery("select e from Company e where e.numEmployees > :num", Company.class);
+            TypedQuery<Company> q = em.createQuery("select e.name, e.numEmployees from Company e where e.numEmployees > :num", Company.class);
             q.setParameter("num", num);
             List<Company> list = q.getResultList();
             return list;
