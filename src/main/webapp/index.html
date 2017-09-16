@@ -5,6 +5,23 @@
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
     </head>
     <body>
-        <h1>Hello World!</h1>
+        <div id="here"></div>
+        <script>
+            fetch("api/person/complete", {method: "get"})
+            .then(function (response) {
+                return response.json();
+            })
+            .then(function (json) {
+                
+                for(var i = 0; i < json.length; i++){
+                    document.getElementById("here").innerHTML +=
+                    "id: " + json[i].id +
+                    ", email: " + json[i].email +
+                    ", first name: " + json[i].firstName +
+                    ", second name: " + json[i].lastName +"<br>";
+                }
+            });
+            
+        </script>
     </body>
 </html>
