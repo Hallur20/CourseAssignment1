@@ -29,31 +29,45 @@ and open the template in the editor.
     </head>
     <body>
         <h1>Get persons with a given hobby</h1>
-        <form onsubmit="test()">
-            <input type="text">
-            <input type="submit">
-        </form>
-        <div id="hobbies"></div>
+        <input type="text">
+        <button onclick="test()">Show</button>
+        <div id="hobbies"></div><br>
         <a href="index.html">back</a>
+        <div id="nhobbies"></div>
         <script>
-            function test(){
-                alert("test");
+            function test() {
+                var hobby = {
+                    hobby: document.getElementById("hobbyId").value
+                };
+                
+                fetch("api/person", {
+                    method: "post",
+                    body: JSON.stringify(hobby),
+                    headers: new Headers({'content-type': 'application/json'})
+                })
+                        .then(function (response) {
+                            return response.json();
+                }).then(function (json) {
+                    var length = json.length;
+                    var str = "";
+                    for (var i = 0; i < length; i++) {
+                        str += "<li>" + json[i] + "</li>";
+                    }
+                    document.getElementById("nhobbies").innerHTML = str;
+
+                });
             }
+
             fetch("api/person/hobby", {method: "get"})
                     .then(function (response) {
                         return response.json();
                     })
                     .then(function (json) {
-                        var str = "<table><tr><th>First name</th><th>Last name</th></tr>";
                         for (var i = 0; i < json.length; i++) {
-                            str += "<tr><td>" + json[i] + "</td>";
-                            str += "<td>" + json[i].lastName + "</td></tr>";
+                            document.getElementById("hobbies").innerHTML += "<li>" +
+                                    json[i].name +
+                                    "</li>";
                         }
-                        str += "</table>";
-                        document.getElementById("hobbies").innerHTML = str;
-                    })
-                    .catch(function (error) {
-                        alert("Error");
                     });
         </script>
     </body>

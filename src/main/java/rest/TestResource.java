@@ -46,16 +46,14 @@ public class TestResource {
         gson = new Gson();
     }
 
-
-
-   @POST
+    @POST
     @Consumes(MediaType.APPLICATION_JSON)
     @Produces(MediaType.APPLICATION_JSON)
     public String postPerson(String content) {
         JsonObject body = new JsonParser().parse(content).getAsJsonObject();
         int Num = 0;
         if (body.has("num")) {
-             Num = body.get("num").getAsInt();
+            Num = body.get("num").getAsInt();
         }
         return new Gson().toJson(f.getEmployeesNum(Num));
     }
