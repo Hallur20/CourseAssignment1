@@ -48,15 +48,15 @@ public class TestResource {
     public String getPersNum(@PathParam("id") int id) {
         return gson.toJson(f.getEmployeesNum(id));
     }
-    
+
     @GET
     @Path("complete")
     @Produces(MediaType.APPLICATION_JSON)
     public String getPers() {
         return gson.toJson(f.getPersonInfo());
     }
-    
-        @GET
+
+    @GET
     @Path("completeCompany")
     @Produces(MediaType.APPLICATION_JSON)
     public String getComp() {
@@ -83,11 +83,11 @@ public class TestResource {
     public String getPersHobby() {
         return gson.toJson(f.getPersonHobby());
     }
-    
+
     @GET
     @Path("contact/{id}")
     @Produces(MediaType.APPLICATION_JSON)
-        public String getPersIdContactInfo(@PathParam("id") Long id) {
+    public String getPersIdContactInfo(@PathParam("id") Long id) {
         try {
             if (f.getPersonInfoId(id).isEmpty()) {
                 throw new QuoteNotFoundException("{\"code\": 404, \"message\": \"Quote with requested id: " + id + " not found\"} ");

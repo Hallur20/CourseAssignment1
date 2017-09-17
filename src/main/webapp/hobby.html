@@ -28,25 +28,37 @@ and open the template in the editor.
         </style>
     </head>
     <body>
-        <h1>Get a list of all zip codes in denmark</h1>
+        <h1>Get persons with a given hobby</h1>
+        <p>Programering</p>
+        <p>Magi</p>
+        <p>Bogskrivning</p>
+        <p>e-sport</p>
+        <p>astronomi</p>
+        <form onsubmit="test()">
+            <input type="text">
+            <input type="submit">
+        </form>
+        <div id="hobbies"></div>
         <a href="index.html">back</a>
-        <div id="zips"></div>
         <script>
-            fetch("api/person/cityinfo", {method: "get"})
+            function test(){
+                alert("test");
+            }
+            fetch("api/person/hobby", {method: "get"})
                     .then(function (response) {
                         return response.json();
                     })
                     .then(function (json) {
-                        var str = "<table><tr><th>zip codes in denmark</th><th>place</th></tr>";
+                        var str = "<table><tr><th>First name</th><th>Last name</th></tr>";
                         for (var i = 0; i < json.length; i++) {
-                            str += "<tr><td>" + json[i].zip + "</td>";
-                            str += "<td>" + json[i].city + "</td></tr>";
+                            str += "<tr><td>" + json[i].firstName + "</td>";
+                            str += "<td>" + json[i].lastName + "</td></tr>";
                         }
                         str += "</table>";
-                        document.getElementById("zips").innerHTML = str;
+                        document.getElementById("hobbies").innerHTML = str;
                     })
                     .catch(function (error) {
-                        alert("there was an error");
+                        alert("Error");
                     });
         </script>
     </body>
