@@ -5,24 +5,25 @@ import javax.servlet.ServletContextEvent;
 import javax.servlet.ServletContextListener;
 import javax.servlet.annotation.WebListener;
 
+/**
+ * @author Hallur
+ * Deploys the project
+ */
 @WebListener
-public class DeploymentConfiguration implements ServletContextListener
-{
+public class DeploymentConfiguration implements ServletContextListener {
+
     public static String PU_NAME = "pu";
 
     @Override
-    public void contextInitialized(ServletContextEvent sce)
-    {        
+    public void contextInitialized(ServletContextEvent sce) {
         Map<String, String> env = System.getenv();
 
-        if (env.keySet().contains("DODeployment"))
-        {
+        if (env.keySet().contains("DODeployment")) {
             PU_NAME = "PU_DO";
         }
     }
-    
+
     @Override
-    public void contextDestroyed(ServletContextEvent sce)
-    {
+    public void contextDestroyed(ServletContextEvent sce) {
     }
 }

@@ -11,6 +11,7 @@ import javax.persistence.Persistence;
 /**
  *
  * @author Hallur
+ * Builds the tables
  */
 public class Structure {
     public static void main(String[] args) {

@@ -22,6 +22,10 @@ import static org.junit.Assert.*;
 /**
  *
  * @author Christian
+ * Christian used a lot of time, trying to get the server up and running, so we
+ * didn't have too uch time to make tests. The only test we made checked if the 
+ * CityInfo database list was empty, from the FactoryFacade.
+ * We haven't tested our REST API.
  */
 public class FactoryTest {
     

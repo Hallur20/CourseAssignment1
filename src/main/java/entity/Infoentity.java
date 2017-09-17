@@ -23,7 +23,11 @@ import javax.persistence.Table;
 
 /**
  *
- * @author hvn15
+ * Inheritance strategy: Mapped Superclass
+ *  We chose this, since Hallur hadn't been there the first week, and it was the
+ * easiest, since its mappes its own class and dosen't become an entity class
+ * t merges with another. And since it is very, very simple, though the backend
+ * f he coin is tha this class is no longer considered an entity class.
  */
 @MappedSuperclass
 public class Infoentity implements Serializable {

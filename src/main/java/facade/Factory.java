@@ -42,6 +42,9 @@ public class Factory {
         return emf.createEntityManager();
     }
 
+    /*
+    *Gathers the info from the database, about the cityinfo, made by Hallur
+    */
     public List<Cityinfo> getCityInfo() {
         EntityManager em = emf.createEntityManager();
 
@@ -55,6 +58,9 @@ public class Factory {
         }
     }
 
+    /*
+    *Gathers the info from the database, about the people we've made, made by Hallur
+    */
     public List<Person> getPersonInfo() {
         EntityManager em = emf.createEntityManager();
         try {
@@ -65,6 +71,9 @@ public class Factory {
         }
     }
 
+    /*
+    *Compares the employee numbers to the companies, made by Hallur
+    */
     public List<Company> getEmployeesNum(int num) {
         EntityManager em = emf.createEntityManager();
         try {
@@ -77,6 +86,9 @@ public class Factory {
         }
     }
 
+    /*
+    *Gathers the info from the database, about the companies, made by Hallur
+    */
     public List<Company> getAllCompany() {
         EntityManager em = emf.createEntityManager();
         try {
@@ -88,18 +100,24 @@ public class Factory {
         }
     }
 
-    public List<Person> getPersonAllContactInfo(){
+    /*
+    *Gathers people contat info, made by Hallur
+    */
+    public List<Person> getPersonAllContactInfo() {
         EntityManager em = emf.createEntityManager();
-        try{
+        try {
             TypedQuery<Person> q = em.createQuery("select e.address, e.email, e.phones from Person e", Person.class);
             List<Person> list = q.getResultList();
             return list;
         } finally {
-            
+
         }
     }
-    
-    public void createPerson(Long id, String email, String firstname , String lastname){
+
+    /*
+    *creates a person, made by Hallur
+    */
+    public void createPerson(Long id, String email, String firstname, String lastname) {
         EntityManager em = emf.createEntityManager();
         em.getTransaction().begin();
         Person p = new Person();
@@ -107,9 +125,12 @@ public class Factory {
         p.setEmail(email);
         p.setFirstName(firstname);
         p.setLastName(lastname);
-        p.setAddress(new Address(40L,"the street 4", "more", new Cityinfo("100", "beskrivelse")));
+        p.setAddress(new Address(40L, "the street 4", "more", new Cityinfo("100", "beskrivelse")));
     }
-    
+
+    /*
+    *gets an inividual persons contact info, made by Hallur
+    */
     public List<Person> getPersonContactInfo(long id) {
         EntityManager em = emf.createEntityManager();
         try {
@@ -122,6 +143,9 @@ public class Factory {
         }
     }
 
+    /*
+    *Gathers people info id, made by Hallur
+    */
     public List<Person> getPersonInfoId(Long id) {
         EntityManager em = emf.createEntityManager();
         try {
@@ -134,6 +158,9 @@ public class Factory {
         }
     }
 
+    /*
+    *diplays the firstname of the people with a specifc hobby, made by Hallur and Christian
+    */
     public List<Person> getPersonHobby(Long id) {
         EntityManager em = emf.createEntityManager();
         try {
