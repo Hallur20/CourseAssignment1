@@ -46,18 +46,50 @@ public class TestResource {
         gson = new Gson();
     }
 
-
-
-   @POST
+    @POST
     @Consumes(MediaType.APPLICATION_JSON)
+    @Path("empnum")
     @Produces(MediaType.APPLICATION_JSON)
-    public String postPerson(String content) {
+    public String postEmpnum(String content) {
         JsonObject body = new JsonParser().parse(content).getAsJsonObject();
         int Num = 0;
         if (body.has("num")) {
-             Num = body.get("num").getAsInt();
+            Num = body.get("num").getAsInt();
         }
         return new Gson().toJson(f.getEmployeesNum(Num));
+    }
+
+    @POST
+    @Consumes(MediaType.APPLICATION_JSON)
+    @Produces(MediaType.APPLICATION_JSON)
+    public void createPerson(String content) {
+        JsonObject body = new JsonParser().parse(content).getAsJsonObject();
+        Long id = null;
+        String email = "";
+        String firstname = "";
+        String lastname = "";
+        int addressId = 0;
+        int phoneNumber = 0;
+        if (body.has("id")) {
+            id = body.get("id").getAsLong();
+        }
+        if (body.has("email")) {
+            email = body.get("email").getAsString();
+        }
+        if (body.has("firstname")) {
+            firstname = body.get("firstname").getAsString();
+        }
+        if (body.has("lastname")) {
+            lastname = body.get("lastname").getAsString();
+        }
+        if (body.has("addressId")) {
+            addressId = body.get("addressId").getAsInt();
+        }
+        if (body.has("phoneNumber")) {
+            phoneNumber = body.get("phoneNumber").getAsInt();
+        }
+       f.createPerson(id, email, firstname, lastname);
+       //ps we did not manage to finish this one.
     }
 
     @GET
@@ -96,7 +128,14 @@ public class TestResource {
     }
 
     @GET
-    @Path("contact/{id}")
+    @Path("contactinfo")
+    @Produces(MediaType.APPLICATION_JSON)
+    public String getPersonAllContactInfo() {
+        return gson.toJson(f.getPersonAllContactInfo());
+    }
+
+    @GET
+    @Path("contactinfo/{id}")
     @Produces(MediaType.APPLICATION_JSON)
     public String getPersIdContactInfo(@PathParam("id") Long id) {
         try {

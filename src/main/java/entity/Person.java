@@ -50,6 +50,22 @@ public class Person extends Infoentity implements Serializable {
     public void setHobbyList(List<Hobby> hobbyList) {
         this.hobbyList = hobbyList;
     }
+
+    public Address getAddress() {
+        return address;
+    }
+
+    public void setAddress(Address address) {
+        this.address = address;
+    }
+
+    public Phone getPhones() {
+        return phones;
+    }
+
+    public void setPhones(Phone phones) {
+        this.phones = phones;
+    }
  
     
     

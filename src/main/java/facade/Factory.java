@@ -5,6 +5,7 @@
  */
 package facade;
 
+import entity.Address;
 import entity.Cityinfo;
 import entity.Company;
 import entity.Hobby;
@@ -63,8 +64,9 @@ public class Factory {
 
         }
     }
-    public List<Company> getEmployeesNum(int num){
-                EntityManager em = emf.createEntityManager();
+
+    public List<Company> getEmployeesNum(int num) {
+        EntityManager em = emf.createEntityManager();
         try {
             TypedQuery<Company> q = em.createQuery("select e.name, e.numEmployees from Company e where e.numEmployees > :num", Company.class);
             q.setParameter("num", num);
@@ -86,10 +88,32 @@ public class Factory {
         }
     }
 
-    public List<Person> getPersonInfoId(Long id) {
+    public List<Person> getPersonAllContactInfo(){
+        EntityManager em = emf.createEntityManager();
+        try{
+            TypedQuery<Person> q = em.createQuery("select e.address, e.email, e.phones from Person e", Person.class);
+            List<Person> list = q.getResultList();
+            return list;
+        } finally {
+            
+        }
+    }
+    
+    public void createPerson(Long id, String email, String firstname , String lastname){
+        EntityManager em = emf.createEntityManager();
+        em.getTransaction().begin();
+        Person p = new Person();
+        p.setId(id);
+        p.setEmail(email);
+        p.setFirstName(firstname);
+        p.setLastName(lastname);
+        p.setAddress(new Address(40L,"the street 4", "more", new Cityinfo("100", "beskrivelse")));
+    }
+    
+    public List<Person> getPersonContactInfo(long id) {
         EntityManager em = emf.createEntityManager();
         try {
-            TypedQuery<Person> q = em.createQuery("select e from Person e where e.id = :personid", Person.class);
+            TypedQuery<Person> q = em.createQuery("select e.address, e.email, e.phones from Person e where e.id = :personid", Person.class);
             q.setParameter("personid", id);
             List<Person> list = q.getResultList();
             return list;
@@ -98,10 +122,10 @@ public class Factory {
         }
     }
 
-    public List<Person> getPersonContactInfo(Long id) {
+    public List<Person> getPersonInfoId(Long id) {
         EntityManager em = emf.createEntityManager();
         try {
-            TypedQuery<Person> q = em.createQuery("select e.address from Person e where e.id = :personid", Person.class);
+            TypedQuery<Person> q = em.createQuery("select e from Person e where e.id = :personid", Person.class);
             q.setParameter("personid", id);
             List<Person> list = q.getResultList();
             return list;

@@ -28,7 +28,7 @@ and open the template in the editor.
                     num: document.getElementById("num").value
                 };
 
-                fetch("api/person", {
+                fetch("api/person/empnum", {
                     method: "post",
                     body: JSON.stringify(num),
                     headers: new Headers({'content-type': 'application/json'})

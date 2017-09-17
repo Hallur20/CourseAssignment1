@@ -36,6 +36,15 @@ public class Address implements Serializable {
      @JoinColumn(name="zip", referencedColumnName="zip")
      public Cityinfo cityinfo;
 
+    public Address(Long AdressId, String street, String additionalInfo, Cityinfo cityinfo) {
+        this.AdressId = AdressId;
+        this.street = street;
+        this.additionalInfo = additionalInfo;
+        this.cityinfo = cityinfo;
+    }
+
+   
+   
     public Long getAdressId() {
         return AdressId;
     }
