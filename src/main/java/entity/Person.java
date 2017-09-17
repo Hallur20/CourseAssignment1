@@ -40,6 +40,8 @@ public class Person extends Infoentity implements Serializable {
        )
        private List<Hobby> hobbyList; 
 
+    
+    
     public Person() {
     }
 
