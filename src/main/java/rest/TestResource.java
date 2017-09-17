@@ -87,10 +87,10 @@ public class TestResource {
     }
 
     @GET
-    @Path("hobby")
+    @Path("hobby/{id}")
     @Produces(MediaType.APPLICATION_JSON)
-    public String getPersHobby() {
-        return gson.toJson(f.getPersonHobby());
+    public String getPersHobby(@PathParam("id") long id) {
+        return gson.toJson(f.getPersonHobby(id));
     }
 
     @GET
