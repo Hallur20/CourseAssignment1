@@ -134,16 +134,12 @@ public class Factory {
         }
     }
 
-    public Collection<Hobby> getPersonHobby() {
+    public List<Hobby> getPersonHobby() {
         EntityManager em = emf.createEntityManager();
         try {
-            TypedQuery<Person> q = em.createQuery("select e from Person e where e.id =:personid", Person.class);
-            List<Person> list = q.getResultList();
-            Collection<Hobby> c = null;
-            for (int i = 0; i < list.size(); i++) {
-                c = list.get(i).getHobbyList();
-            }
-            return c;
+            TypedQuery<Hobby> q = em.createQuery("select e from Hobby e", Hobby.class);
+            List<Hobby> li = q.getResultList();
+            return li;
         } finally {
 
         }

@@ -9,51 +9,63 @@ and open the template in the editor.
         <title>TODO supply a title</title>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <style>
+            table {
+                font-family: arial, sans-serif;
+                border-collapse: collapse;
+                width: 100%;
+            }
+
+            td, th {
+                border: 1px solid #dddddd;
+                text-align: left;
+                padding: 8px;
+            }
+
+            tr:nth-child(even) {
+                background-color: #dddddd;
+            }
+        </style>
     </head>
     <body>
-        <h1>Get a list of companies with more than xx employees</h1>
+        <h1>Get persons with a given hobby</h1>
+        <input type="text">
+        <button onclick="test()">Show</button>
+        <div id="hobbies"></div><br>
         <a href="index.html">back</a>
-        <div id="companies"></div><br>
-        <input id="num" type="number">
-        <button onclick="test()">submit new list</button>
-        <h1>List will appear down here according to input value.</h1>
-        <div id="chosenC"></div>
-
-
-
-
+        <div id="nhobbies"></div>
         <script>
             function test() {
-                var num = {
-                    num: document.getElementById("num").value
+                var hobby = {
+                    hobby: document.getElementById("hobbyId").value
                 };
-
-                fetch("api/person/empnum", {
+                
+                fetch("api/person", {
                     method: "post",
-                    body: JSON.stringify(num),
+                    body: JSON.stringify(hobby),
                     headers: new Headers({'content-type': 'application/json'})
                 })
                         .then(function (response) {
                             return response.json();
-                        }).then(function (json) {
+                }).then(function (json) {
                     var length = json.length;
                     var str = "";
                     for (var i = 0; i < length; i++) {
                         str += "<li>" + json[i] + "</li>";
                     }
-                    document.getElementById("chosenC").innerHTML = str;
+                    document.getElementById("nhobbies").innerHTML = str;
 
                 });
             }
-            fetch("api/person/completeCompany", {method: "get"})
+
+            fetch("api/person/hobby", {method: "get"})
                     .then(function (response) {
                         return response.json();
                     })
                     .then(function (json) {
                         for (var i = 0; i < json.length; i++) {
-                            document.getElementById("companies").innerHTML += "<li>" +
+                            document.getElementById("hobbies").innerHTML += "<li>" +
                                     json[i].name +
-                                    " - num employees: " + json[i].numEmployees +
                                     "</li>";
                         }
                     });
