@@ -12,31 +12,49 @@ and open the template in the editor.
     </head>
     <body>
         <h1>Get a list of companies with more than xx employees</h1>
-        <div id="companies"></div>
-        <form onsubmit="test()">
-            <input type="text">
-            <input type="submit">
-        </form>
         <a href="index.html">back</a>
+        <div id="companies"></div><br>
+        <input id="num" type="number">
+        <button onclick="test()">submit new list</button>
+        <h1>List will appear down here according to input value.</h1>
+        <div id="chosenC"></div>
+
+
+
+        
         <script>
-            function test(){
-                alert("test");
+            function test() {
+                var num = {
+                    num: document.getElementById("num").value
+                };
+
+                fetch("api/person", {
+                    method: "post",
+                    body: JSON.stringify(num),
+                    headers: new Headers({'content-type': 'application/json'})
+                })
+                        .then(function (response) {
+                            return response.json();
+                        }).then(function (json) {
+                    var length = json.length;
+                    var str = "";
+                    for (var i = 0; i < length; i++) {
+                        str += "<li>" + json[i] + "</li>";
+                    }
+                    document.getElementById("chosenC").innerHTML = str;
+
+                });
             }
             fetch("api/person/completeCompany", {method: "get"})
                     .then(function (response) {
                         return response.json();
                     })
                     .then(function (json) {
-                        for(var i = 0; i < json.length; i++){
+                        for (var i = 0; i < json.length; i++) {
                             document.getElementById("companies").innerHTML += "<li>" +
-                            "id: " + json[i].id +
-                            ", cvr: " + json[i].cvr +
-                            ", description: " + json[i].description +
-                            ", email: " + json[i].email +
-                            ", market value: " + json[i].marketValue +
-                            ", name: " + json[i].name +
-                            ", num employees: " + json[i].numEmployees + 
-                            "</li>";
+                                    json[i].name +
+                                    " - num employees: " + json[i].numEmployees +
+                                    "</li>";
                         }
                     });
         </script>

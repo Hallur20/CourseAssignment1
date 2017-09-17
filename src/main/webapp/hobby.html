@@ -29,11 +29,6 @@ and open the template in the editor.
     </head>
     <body>
         <h1>Get persons with a given hobby</h1>
-        <p>Programering</p>
-        <p>Magi</p>
-        <p>Bogskrivning</p>
-        <p>e-sport</p>
-        <p>astronomi</p>
         <form onsubmit="test()">
             <input type="text">
             <input type="submit">
@@ -51,7 +46,7 @@ and open the template in the editor.
                     .then(function (json) {
                         var str = "<table><tr><th>First name</th><th>Last name</th></tr>";
                         for (var i = 0; i < json.length; i++) {
-                            str += "<tr><td>" + json[i].firstName + "</td>";
+                            str += "<tr><td>" + json[i] + "</td>";
                             str += "<td>" + json[i].lastName + "</td></tr>";
                         }
                         str += "</table>";
