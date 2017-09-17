@@ -111,11 +111,12 @@ public class Factory {
         }
     }
 
-    public List<Hobby> getPersonHobby() {
+    public List<Person> getPersonHobby(Long id) {
         EntityManager em = emf.createEntityManager();
         try {
-            TypedQuery<Hobby> q = em.createQuery("select e from Hobby e", Hobby.class);
-            List<Hobby> li = q.getResultList();
+            TypedQuery<Person> q = em.createQuery("select e.firstName from Person e where e.id = :personid", Person.class);
+            q.setParameter("personid", id);
+            List<Person> li = q.getResultList();
             return li;
         } finally {
 
